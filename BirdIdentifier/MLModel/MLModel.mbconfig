@@ -1,29 +1,14 @@
-{
+﻿{
   "TrainingTime": 2147482,
   "Scenario": "ImageClassification",
   "DataSource": {
     "Type": "Folder",
     "Version": 1,
-    "FolderPath": "E:\\Code\\Sandbox\\ML Training Sets\\400 bird set\\train"
+    "FolderPath": "C:\\Users\\Adam\\Downloads\\archive\\train"
   },
   "Environment": {
     "Type": "LocalCPU",
     "Version": 1
-  },
-  "RunHistory": {
-    "Version": 0,
-    "Type": "Result",
-    "Trials": [
-      {
-        "Version": 0,
-        "Type": "Trial",
-        "TrainerName": "ImageClassification",
-        "Score": 0.8899,
-        "RuntimeInSeconds": 5675.0
-      }
-    ],
-    "Pipeline": "[{\"EstimatorType\":\"MapValueToKey\",\"Inputs\":[\"Label\"],\"Outputs\":[\"Label\"]},{\"OutputColumnName\":\"ImageSource_featurized\",\"ImageFolder\":\"\",\"InputColumnName\":\"ImageSource\",\"EstimatorType\":\"LoadRawImageBytes\",\"Inputs\":[\"ImageSource\"],\"Outputs\":[\"ImageSource_featurized\"]},{\"EstimatorType\":\"CopyColumns\",\"Inputs\":[\"ImageSource_featurized\"],\"Outputs\":[\"Features\"]},{\"LabelColumnName\":\"Label\",\"EstimatorType\":\"ImageClassificationMulti\",\"Inputs\":[\"Features\"],\"Outputs\":[\"Score\"]},{\"EstimatorType\":\"MapKeyToValue\",\"Inputs\":[\"PredictedLabel\"],\"Outputs\":[\"PredictedLabel\"]}]",
-    "MetricName": "MicroAccuracy"
   },
   "Type": "TrainingConfig",
   "Version": 1
