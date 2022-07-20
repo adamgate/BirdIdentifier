@@ -1,0 +1,9 @@
+.footer {
+    display: block;
+	background: var(--bg-accent);
+	color: white;
+	border: 0;
+	transition: all 0.3s ease-in-out;
+	box-shadow: 5px var(--bg-secondary);
+    background-color: var(--bg-accent);
+}

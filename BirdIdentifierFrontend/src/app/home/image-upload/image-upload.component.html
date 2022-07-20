@@ -1,1 +1,14 @@
-<p>image-upload works!</p>
+<div class="bg-light-theme" style="padding: 15px; border-radius: 5px;">
+	<div class="center">
+		<div class="title">
+			<h1>Click icon below and select an image</h1>
+		</div>
+
+		<div class="dropzone">
+			<img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" style="cursor: pointer;"/>
+			<input type="file" class="upload-input" (change)="onFileSelected($event)" style="	cursor: pointer;"/>
+		</div>
+
+		<button type="button" class="btn" name="uploadbutton" (click)="onUpload()" [disabled]="(selectedFile == null)">Identify</button>
+	</div>
+</div>
