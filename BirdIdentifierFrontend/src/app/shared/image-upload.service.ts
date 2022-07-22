@@ -7,7 +7,7 @@ import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 export class ImageUploadService {
   public birdName: string;
 
-  public urlBase: string = "https://localhost:7110/";
+  public urlBase: string = "https://localhost:7110";
 
   constructor(private http: HttpClient) { }
 
@@ -16,7 +16,7 @@ export class ImageUploadService {
     const formData = new FormData();
     formData.append('image', selectedFile, selectedFile.name);
 
-    this.http.post(this.urlBase + 'images', formData, {
+    this.http.post(`${this.urlBase}/images`, formData, {
       reportProgress: true,
       observe: 'events'
     }).subscribe(

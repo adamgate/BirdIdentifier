@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { empty } from 'rxjs';
 import { ImageUploadService } from 'src/app/shared/image-upload.service';
 
 @Component({
@@ -9,6 +8,7 @@ import { ImageUploadService } from 'src/app/shared/image-upload.service';
 })
 export class ImageUploadComponent implements OnInit {
   selectedFile: File = null;
+  validFile: boolean = false;
 
   constructor(private imageUploadService: ImageUploadService) { }
 
@@ -20,20 +20,13 @@ export class ImageUploadComponent implements OnInit {
 
     this.selectedFile = event.target.files[0];
 
-    if (this.selectedFile) {
+    if (!this.selectedFile) {
       return;
     }
 
-    if (this.selectedFile)
     var fileExt = this.getExtension(this.selectedFile.name);
 
-    if(this.isImage(fileExt)) {
-      //enable upload button
-      //set warning message to green and say "ready for upload"
-    } else {
-      //keep upload button disabled
-      //show red warning message asking them to choose correct file type
-    }
+    this.validFile = this.isImage(fileExt);
   }
 
   onUpload() {
@@ -53,7 +46,6 @@ export class ImageUploadComponent implements OnInit {
       case 'jpg':
       case 'jpeg':
       case 'png':
-        //etc
         return true;
     }
     return false;

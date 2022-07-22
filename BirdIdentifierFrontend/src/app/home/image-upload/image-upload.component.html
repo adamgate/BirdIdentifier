@@ -9,6 +9,9 @@
 			<input type="file" class="upload-input" accept=".png,.jpg,.jpeg" (change)="onFileSelected($event)" style="cursor: pointer;"/>
 		</div>
 
-		<button type="button" class="btn" name="uploadbutton" (click)="onUpload()" [disabled]="(selectedFile == null)">Identify</button>
+		<p class="alert alert-danger" *ngIf="(selectedFile != null && !validFile)">Please upload a .png, .jpg, or .jpeg.</p>
+		<p class="alert alert-success" *ngIf="(selectedFile != null && validFile)">Your file is ready for upload.</p>
+
+		<button type="button" class="btn" name="uploadbutton" (click)="onUpload()" [disabled]="(selectedFile == null || !validFile)">Identify</button>
 	</div>
 </div>
