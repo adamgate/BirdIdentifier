@@ -6,7 +6,7 @@
 
 		<div class="dropzone">
 			<img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" style="cursor: pointer;"/>
-			<input type="file" class="upload-input" (change)="onFileSelected($event)" style="	cursor: pointer;"/>
+			<input type="file" class="upload-input" accept=".png,.jpg,.jpeg" (change)="onFileSelected($event)" style="cursor: pointer;"/>
 		</div>
 
 		<button type="button" class="btn" name="uploadbutton" (click)="onUpload()" [disabled]="(selectedFile == null)">Identify</button>

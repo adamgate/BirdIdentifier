@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEventType } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -7,16 +7,16 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 export class ImageUploadService {
   public birdName: string;
 
-  public url: string = "https://localhost:44370/images";
+  public urlBase: string = "https://localhost:7110/";
 
   constructor(private http: HttpClient) { }
 
   //Send an image to the ML model for identification
   imageUpload(selectedFile: any) {
     const formData = new FormData();
-    formData.append('image', selectedFile, selectedFile.name)
+    formData.append('image', selectedFile, selectedFile.name);
 
-    this.http.post(this.url, formData, {
+    this.http.post(this.urlBase + 'images', formData, {
       reportProgress: true,
       observe: 'events'
     }).subscribe(

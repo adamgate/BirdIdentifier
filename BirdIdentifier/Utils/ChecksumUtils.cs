@@ -2,6 +2,9 @@
 
 namespace BirdIdentifier.Utils;
 
+/**
+ * 
+ */
 public static class ChecksumUtils
 {
     public static string GetChecksum(IFormFile file)
