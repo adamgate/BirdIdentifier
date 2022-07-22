@@ -49,3 +49,11 @@ body {
 	background: var(--hl-secondary);
 	box-shadow: 0 3px 0 0 var(--hl-primary);
 }
+
+.btn:disabled
+{
+	color: black;
+	background: #F9EA8B;
+	box-shadow: 0 3px 0 0 #9B9989;
+	cursor:not-allowed;
+}
