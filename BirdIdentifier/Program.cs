@@ -18,9 +18,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddHttpLogging(logging =>
 {
     logging.LoggingFields = HttpLoggingFields.All;
-    // logging.RequestBodyLogLimit = 4096;
-    // logging.ResponseBodyLogLimit = 4096;
-
 });
 
 var app = builder.Build();

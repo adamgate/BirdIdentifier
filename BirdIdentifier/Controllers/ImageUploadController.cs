@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using BirdIdentifier.Utils;
+using Newtonsoft.Json;
 
 namespace BirdIdentifier.Controllers;
 
@@ -8,18 +9,25 @@ namespace BirdIdentifier.Controllers;
 [Route("images")]
 public class ImageUploadController : ControllerBase
 {
-    [HttpPost]
-    public async Task<IActionResult> OnPostUpload(IFormFile file)
+    [HttpGet]
+    public IActionResult Heartbeat()
     {
-        var fileExt = Path.GetExtension(file.FileName);
-
+        Console.WriteLine("Heartbeat reached");
+        return Ok();
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> OnPostUpload(IFormFile image)
+    {
+        var fileExt = Path.GetExtension(image.FileName);
+        
         //Check for the correct filetypes & return error if they don't match
         if (fileExt != ".jpg" && fileExt != ".jpeg" && fileExt != ".png")
             return BadRequest("File was not of type .png, .jpg, or .jpeg.");
         
         //Create a checksum from the image to avoid duplicate files
-        var checksum = ChecksumUtils.GetChecksum(file);
-
+        var checksum = ChecksumUtils.GetChecksum(image);
+        
         //Create directory if it doesn't exist
         Directory.CreateDirectory(@"./UploadedImages");
         var filePath = $@"./UploadedImages/{checksum}{fileExt}";
@@ -29,10 +37,10 @@ public class ImageUploadController : ControllerBase
         {
             await using (var stream = System.IO.File.Create(filePath))
             {
-                await file.CopyToAsync(stream);
+                await image.CopyToAsync(stream);
             }
         }
-
+        
         //Convert image into format the ML model can use
         var mlData = new MLModel.ModelInput
         {
@@ -41,8 +49,8 @@ public class ImageUploadController : ControllerBase
             
         //Pass in the data and get a prediction
         var predictionResult = MLModel.Predict(mlData);
-
+        
         //Return prediction to the front end
-        return Ok(predictionResult.Prediction);
+        return Ok(JsonConvert.SerializeObject(predictionResult.Prediction));
     }
 }
