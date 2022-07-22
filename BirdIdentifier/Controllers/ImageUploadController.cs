@@ -5,10 +5,17 @@ using Newtonsoft.Json;
 
 namespace BirdIdentifier.Controllers;
 
+/**
+ * <summary>Controller that accepts users images and processes them with an ML model</summary>
+ */
 [ApiController]
 [Route("images")]
 public class ImageUploadController : ControllerBase
 {
+    /**
+     * <summary>Used to determine if the service is reachable</summary>
+     * <returns>Http Status Code</returns>
+     */
     [HttpGet]
     public IActionResult Heartbeat()
     {
@@ -16,6 +23,12 @@ public class ImageUploadController : ControllerBase
         return Ok();
     }
     
+    /**
+     * <summary>Used to determine if the service is reachable</summary>
+     * <param name="image">A file sent with the http request</param>
+     * <returns>Http Status Code</returns>
+     */
+
     [HttpPost]
     public async Task<IActionResult> OnPostUpload(IFormFile image)
     {
