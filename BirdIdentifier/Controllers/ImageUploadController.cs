@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BirdIdentifier.Models;
+using Microsoft.AspNetCore.Mvc;
 
 using BirdIdentifier.Utils;
 using Newtonsoft.Json;
@@ -28,7 +29,6 @@ public class ImageUploadController : ControllerBase
      * <param name="image">A file sent with the http request</param>
      * <returns>Http Status Code</returns>
      */
-
     [HttpPost]
     public async Task<IActionResult> OnPostUpload(IFormFile image)
     {
@@ -37,13 +37,16 @@ public class ImageUploadController : ControllerBase
         //Check for the correct filetypes & return error if they don't match
         if (fileExt != ".jpg" && fileExt != ".jpeg" && fileExt != ".png")
             return BadRequest("File was not of type .png, .jpg, or .jpeg.");
-        
-        //Create a checksum from the image to avoid duplicate files
-        var checksum = ChecksumUtils.GetChecksum(image);
-        
+
+        var prediction = new Prediction
+        {
+            //Create a checksum from the image to avoid duplicate files
+            ImageChecksum = EncodingUtils.ToChecksum(image)
+        };
+
         //Create directory if it doesn't exist
         Directory.CreateDirectory(@"./UploadedImages");
-        var filePath = $@"./UploadedImages/{checksum}{fileExt}";
+        var filePath = $@"./UploadedImages/{prediction.ImageChecksum}{fileExt}";
             
         // Save the file if it isn't already present
         if (!System.IO.File.Exists(filePath))
@@ -62,8 +65,22 @@ public class ImageUploadController : ControllerBase
             
         //Pass in the data and get a prediction
         var predictionResult = MLModel.Predict(mlData);
+
+        prediction.PredictionName = predictionResult.Prediction;
+        prediction.PredictionScore = predictionResult.Score;
+        prediction.Timestamp = DateTime.UtcNow;
+        prediction.ImageBase64 = EncodingUtils.ToBase64(image);
+        
+        //String processing
+        prediction.PredictionName = prediction.PredictionName.Replace("-", " ");
+        prediction.PredictionName = prediction.PredictionName.ToLower();
+        prediction.Link = $"https://www.audubon.org/search_results?search={prediction.PredictionName}";
+        prediction.Link = prediction.Link.Replace(" ", "%20");
+
+        //TODO - convert this to logging with serilog
+        Console.WriteLine($"Prediction: {prediction.PredictionName} | Time: {prediction.Timestamp:f} | User: {Request.Headers["User-Agent"].ToString()}");
         
         //Return prediction to the front end
-        return Ok(JsonConvert.SerializeObject(predictionResult.Prediction));
+        return Ok(JsonConvert.SerializeObject(prediction));
     }
 }
