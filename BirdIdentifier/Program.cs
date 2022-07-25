@@ -33,7 +33,7 @@ if (app.Environment.IsDevelopment())
         .AllowAnyMethod()
         .AllowAnyHeader());
 
-    app.UseHttpLogging();
+    // app.UseHttpLogging();
 }
 
 app.UseHttpsRedirection();
