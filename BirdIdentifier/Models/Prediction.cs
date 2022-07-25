@@ -8,7 +8,8 @@ public class Prediction
     public DateTime Timestamp { get; set; }
     public string PredictionName { get; set; }
     public float[] PredictionScore { get; set; }
-    public string Link { get; set; }
+    public string ExactLink { get; set; }
+    public string SearchLink { get; set; }
 
     public Prediction()
     {
