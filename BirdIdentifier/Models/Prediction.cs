@@ -2,13 +2,13 @@
 
 public class Prediction
 {
-    private int PredictionId { get; set; }
-    private int ImageChecksum { get; set; }
-    private string ImageBase64 { get; set; }
-    private DateTime Timestamp { get; set; }
-    private string PredictionName { get; set; }
-    private float PredictionScore { get; set; }
-    private string Link { get; set; }
+    public int PredictionId { get; set; }
+    public string ImageChecksum { get; set; }
+    public string ImageBase64 { get; set; }
+    public DateTime Timestamp { get; set; }
+    public string PredictionName { get; set; }
+    public float[] PredictionScore { get; set; }
+    public string Link { get; set; }
 
     public Prediction()
     {

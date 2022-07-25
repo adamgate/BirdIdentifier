@@ -2,10 +2,10 @@
 
 public class PredictionRating
 {
-    private int PredictionRatingId { get; set; }
-    private bool WasCorrect { get; set; }
-    private string? CorrectPrediction { get; set; }
-    private string Description { get; set; }
+    public int PredictionRatingId { get; set; }
+    public bool WasCorrect { get; set; }
+    public string? CorrectPrediction { get; set; }
+    public string Description { get; set; }
 
     public PredictionRating()
     {
