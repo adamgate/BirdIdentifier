@@ -1,2 +1,6 @@
 # BirdIdentifier
-Seed Searcher is a web app that uses machine learning to help users identify birds in their pictures. The frontend is written in Angular and the backend is written in C# and .NET.
+Bird Identifier is a web app that uses machine learning to help users identify birds in their pictures. It's pretty self explanatory.
+
+This contains the backend code that does the heavy lifting.
+
+The frontend can be found [here](https://github.com/adamgate/BirdIdentifier-Frontend).
