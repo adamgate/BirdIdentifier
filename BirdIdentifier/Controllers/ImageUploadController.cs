@@ -13,7 +13,6 @@ namespace BirdIdentifier.Controllers;
 [Route("images")]
 public class ImageUploadController : ControllerBase
 {
-
     /**
      * <summary>Receives an image, analyzes it with an ML model, and returns the prediction to the user.</summary>
      * <param name="image">A file sent with the http request</param>
@@ -57,21 +56,18 @@ public class ImageUploadController : ControllerBase
         var predictionResult = MLModel.Predict(mlData);
 
         prediction.PredictionName = predictionResult.Prediction;
-        prediction.PredictionScore = predictionResult.Score;
+        prediction.FindHighestScore(predictionResult.Score);
         prediction.Timestamp = DateTime.UtcNow;
 
         //String processing
         prediction.PredictionName = prediction.PredictionName.Replace("-", " ");
         prediction.PredictionName = prediction.PredictionName.ToLower();
-        //TODO- put parsing logic in prediction helper function
         prediction.SearchLink = $"https://www.audubon.org/search_results?search={prediction.PredictionName}";
         prediction.SearchLink = prediction.SearchLink.Replace(" ", "%20");
         prediction.ExactLink = $"https://www.audubon.org/field-guide/bird/{prediction.PredictionName}";
         prediction.ExactLink = prediction.ExactLink.Replace(" ", "-");
-
-        //TODO - convert this to logging with serilog
+        
         Console.WriteLine($"Prediction: {prediction.PredictionName} | Time: {prediction.Timestamp:f} | User: {Request.Headers["User-Agent"].ToString()}");
-
         Console.WriteLine(JsonConvert.SerializeObject(prediction));
         
         //Return prediction to the front end

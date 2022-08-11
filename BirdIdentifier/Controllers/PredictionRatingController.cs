@@ -18,8 +18,7 @@ public class PredictionRatingController : ControllerBase
     public async Task<IActionResult> Post(PredictionRating feedback)
     {
         //check the data to ensure it's accurate
-        feedback.PredictionRatingId = new int();
-        
+
         //Throw 400 if the request is bad
 
         //save the prediction in await. if successful, return 200. If unsuccessful, return 500.
