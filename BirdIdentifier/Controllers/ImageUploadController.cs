@@ -13,10 +13,11 @@ namespace BirdIdentifier.Controllers;
 [Route("images")]
 public class ImageUploadController : ControllerBase
 {
+
     /**
-     * <summary>Used to determine if the service is reachable</summary>
+     * <summary>Receives an image, analyzes it with an ML model, and returns the prediction to the user.</summary>
      * <param name="image">A file sent with the http request</param>
-     * <returns>Http Status Code</returns>
+     * <returns>Http Status Code, a 400 with error or a 200 with a prediction.</returns>
      */
     [HttpPost]
     public async Task<IActionResult> OnPostUpload(IFormFile image)
