@@ -15,17 +15,6 @@ public class ImageUploadController : ControllerBase
 {
     /**
      * <summary>Used to determine if the service is reachable</summary>
-     * <returns>Http Status Code</returns>
-     */
-    [HttpGet]
-    public IActionResult Heartbeat()
-    {
-        Console.WriteLine("Heartbeat reached");
-        return Ok();
-    }
-    
-    /**
-     * <summary>Used to determine if the service is reachable</summary>
      * <param name="image">A file sent with the http request</param>
      * <returns>Http Status Code</returns>
      */
