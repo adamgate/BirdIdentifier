@@ -29,7 +29,7 @@ public class ImageUploadController : ControllerBase
 
         var prediction = new Prediction
         {
-            //Create a checksum from the image to avoid duplicate files
+            //Create a checksum from the image to avoid saving duplicate files
             ImageChecksum = EncodingUtils.ToChecksum(image)
         };
 
@@ -56,10 +56,9 @@ public class ImageUploadController : ControllerBase
         var predictionResult = MLModel.Predict(mlData);
 
         prediction.PredictionName = predictionResult.Prediction;
-        // prediction.PredictionScore = predictionResult.Score;
+        prediction.PredictionScore = predictionResult.Score;
         prediction.Timestamp = DateTime.UtcNow;
-        // prediction.ImageBase64 = EncodingUtils.ToBase64(image);
-        
+
         //String processing
         prediction.PredictionName = prediction.PredictionName.Replace("-", " ");
         prediction.PredictionName = prediction.PredictionName.ToLower();

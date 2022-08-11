@@ -2,6 +2,9 @@
 
 namespace BirdIdentifier.Controllers;
 
+/**
+ * <summary>Controller that has a simple endpoint to let the user know if the service is available</summary>
+ */
 [ApiController]
 [Route("heartbeat")]
 public class HeartbeatController : ControllerBase

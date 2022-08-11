@@ -4,7 +4,6 @@ public class Prediction
 {
     public int PredictionId { get; set; }
     public string ImageChecksum { get; set; }
-    public string ImageBase64 { get; set; }
     public DateTime Timestamp { get; set; }
     public string PredictionName { get; set; }
     public float[] PredictionScore { get; set; }
