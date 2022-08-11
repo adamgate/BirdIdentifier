@@ -36,9 +36,6 @@ if (app.Environment.IsDevelopment())
     // app.UseHttpLogging();
 }
 
-//Set the content root path and make it available to every class
-AppDomain.CurrentDomain.SetData("ContentRootPath", Directory.GetCurrentDirectory());
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

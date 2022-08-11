@@ -17,6 +17,18 @@ public class HeartbeatController : ControllerBase
     public IActionResult Heartbeat()
     {
         // return Content("{ \"health\":\"ok\" }");
-        return Content((string)AppDomain.CurrentDomain.GetData("ContentRootPath")!);
+        return Content(Environment.GetEnvironmentVariable("MLModelPath")!);
+    }
+
+    [HttpPost]
+    public IActionResult SetEnvironmentVariable(String env)
+    {
+        if (env != null)
+        {
+            Environment.SetEnvironmentVariable("MLModelPath", env);
+            return Ok($"Env var set to: {env}");
+        }
+
+        return BadRequest();
     }
 }
