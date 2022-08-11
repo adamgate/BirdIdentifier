@@ -5,7 +5,7 @@ using Microsoft.ML.Data;
 
 public class MLModel
 {
-    private static readonly string MLNetModelPath = Path.GetFullPath(@"MLModel/MLModel.zip");
+    private static readonly string MLNetModelPath = $@"{(string)AppDomain.CurrentDomain.GetData("ContentRootPath")!}/MLModel/MLModel.zip";
 
     public static readonly Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictEngine =
         new(() => CreatePredictEngine(), true);
