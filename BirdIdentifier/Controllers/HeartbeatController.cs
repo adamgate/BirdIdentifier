@@ -16,6 +16,7 @@ public class HeartbeatController : ControllerBase
     [HttpGet]
     public IActionResult Heartbeat()
     {
-        return Content("{ \"health\":\"ok\" }");
+        // return Content("{ \"health\":\"ok\" }");
+        return Content((string)AppDomain.CurrentDomain.GetData("ContentRootPath")!);
     }
 }
