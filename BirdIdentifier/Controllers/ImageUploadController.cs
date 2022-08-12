@@ -25,7 +25,7 @@ public class ImageUploadController : ControllerBase
     [Consumes("multipart/form-data")]
     public async Task<IActionResult> OnPostUpload(IFormFile image)
     {
-        var fileExt = Path.GetExtension(image.FileName);
+        var fileExt = Path.GetExtension(image.FileName).ToLower();
         
         //Check for the correct filetypes & return error if they don't match
         if (fileExt != ".jpg" && fileExt != ".jpeg" && fileExt != ".png")
