@@ -72,9 +72,9 @@ public class ImageUploadController : ControllerBase
         prediction.ExactLink = prediction.ExactLink.Replace(" ", "-");
         
         Console.WriteLine($"Prediction: {prediction.PredictionName} | Time: {prediction.Timestamp:f} | User: {Request.Headers["User-Agent"].ToString()}");
-        Console.WriteLine(JsonConvert.SerializeObject(prediction));
+        Console.WriteLine(JsonConvert.SerializeObject(prediction, Formatting.Indented));
         
         //Return prediction to the front end
-        return Ok(JsonConvert.SerializeObject(prediction));
+        return Ok(JsonConvert.SerializeObject(prediction, Formatting.Indented));
     }
 }
