@@ -15,6 +15,8 @@ public class PredictionRatingController : ControllerBase
      * <param name="feedback">a PredictionRating from the user.</param>
      */
     [HttpPost]
+    [Produces("application/json")]
+    [Consumes("application/json")]
     public async Task<IActionResult> Post(PredictionRating feedback)
     {
         //check the data to ensure it's accurate

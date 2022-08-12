@@ -11,9 +11,10 @@ public class HeartbeatController : ControllerBase
 {
     /**
      * <summary>Used to determine if the service is reachable</summary>
-     * <returns>Http Status Code</returns>
+     * <response code="200">If the web service is running</response>
      */
     [HttpGet]
+    [Produces("application/json")]
     public IActionResult Heartbeat()
     {
         return Content("{ \"health\":\"ok\" }");

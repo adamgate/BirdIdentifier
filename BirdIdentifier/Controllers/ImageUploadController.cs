@@ -16,9 +16,12 @@ public class ImageUploadController : ControllerBase
     /**
      * <summary>Receives an image, analyzes it with an ML model, and returns the prediction to the user.</summary>
      * <param name="image">A file sent with the http request</param>
-     * <returns>Http Status Code, a 400 with error or a 200 with a prediction.</returns>
+     * <response code="200">Returns the prediction</response>
+     * <response code="400">If the file is missing or of incorrect filetype</response>
      */
     [HttpPost]
+    [Produces("application/json")]
+    [Consumes("multipart/form-data")]
     public async Task<IActionResult> OnPostUpload(IFormFile image)
     {
         var fileExt = Path.GetExtension(image.FileName);
