@@ -2,6 +2,7 @@
 
 public class PredictionRating
 {
+    public int PredictionRatingId { get; set; }
     public string ImageChecksum { get; set; }
     public DateTime Timestamp { get; set; }
     public bool WasCorrect { get; set; }
