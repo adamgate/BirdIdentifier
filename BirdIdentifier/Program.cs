@@ -1,13 +1,14 @@
 using System.Reflection;
 using BirdIdentifier.Data;
+using BirdIdentifier.Utils;
 using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+// Switch JSON provider to Newtonsoft for controllers
 builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddDbContext<DataContext>();
@@ -54,5 +55,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Run database migrations when app starts
+app.MigrateDatabase();
 
 app.Run();

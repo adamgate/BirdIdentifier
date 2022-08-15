@@ -1,8 +1,5 @@
-﻿using System.Linq;
-
-using BirdIdentifier.Data;
+﻿using BirdIdentifier.Data;
 using BirdIdentifier.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BirdIdentifier.DAL;
