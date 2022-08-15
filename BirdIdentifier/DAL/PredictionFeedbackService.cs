@@ -33,14 +33,4 @@ public class PredictionFeedbackService
         _context.Add(feedback);
         await _context.SaveChangesAsync();
     }
-
-    public async Task updateFeedback(int id, PredictionFeedback feedback)
-    {
-        
-    }
-
-    public async Task deleteFeedback(int id)
-    {
-        
-    }
 }

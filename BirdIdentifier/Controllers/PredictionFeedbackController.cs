@@ -12,14 +12,12 @@ namespace BirdIdentifier.Controllers;
 [ApiController]
 [Route("feedback")]
 public class PredictionFeedbackController : ControllerBase
-{ 
-    private DataContext _context;
-    private PredictionFeedbackService _databaseService;
+{
+    private readonly PredictionFeedbackService _databaseService;
 
     public PredictionFeedbackController(DataContext context)
     {
-        _context = context;
-        _databaseService = new PredictionFeedbackService(_context);
+        _databaseService = new PredictionFeedbackService(context);
     }
     
     /**
@@ -36,7 +34,7 @@ public class PredictionFeedbackController : ControllerBase
         {
             feedback =  _databaseService.getFeedback(id);
         }
-        catch (Exception e)
+        catch (InvalidOperationException ioe)
         {
             return BadRequest("No item found with that id.");
         }
@@ -56,9 +54,9 @@ public class PredictionFeedbackController : ControllerBase
         {
             feedback = await _databaseService.getAllFeedback();
         }
-        catch (Exception e)
+        catch (InvalidOperationException ioe)
         {
-            return StatusCode(500, e.Message);
+            return StatusCode(500, ioe.Message);
         }
 
         return Ok(JsonConvert.SerializeObject(feedback));
@@ -76,7 +74,7 @@ public class PredictionFeedbackController : ControllerBase
     {
         try
         {
-            _databaseService.createFeedback(feedback);
+            await _databaseService.createFeedback(feedback);
         }
         catch (Exception e)
         {
