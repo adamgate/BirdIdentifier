@@ -16,7 +16,12 @@ public class PredictionFeedbackService
         _context = context;
     }
 
-    public async Task<List<PredictionFeedback>> getFeedback()
+    public PredictionFeedback getFeedback(int id)
+    {
+        return _context.PredictionFeedback.First(pf => pf.PredictionFeedbackId == id);
+    }
+
+    public async Task<List<PredictionFeedback>> getAllFeedback()
     {
         return await _context.PredictionFeedback.ToListAsync();
     }

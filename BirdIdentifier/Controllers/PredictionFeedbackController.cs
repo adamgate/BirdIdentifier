@@ -23,21 +23,52 @@ public class PredictionFeedbackController : ControllerBase
     }
     
     /**
+     * <summary>Returns a PredictionFeedback object.</summary>
+     * <param name="id">The feedback id to be returned.</param>
+     * <response code="200">The feedback with the given id.</response>
+     * <response code="400">If no feedback was found with the id.</response>
+     */
+    [HttpGet("{id}")]
+    public IActionResult Get(int id)
+    {
+        PredictionFeedback feedback;
+        try
+        {
+            feedback =  _databaseService.getFeedback(id);
+        }
+        catch (Exception e)
+        {
+            return BadRequest("No item found with that id.");
+        }
+
+        return Ok(JsonConvert.SerializeObject(feedback, Formatting.Indented));
+    }
+    
+    /**
      * <summary>Returns a list of all the feedback in the system.</summary>
      * <response code="200">A list of all feedback in the database.</response>
      */
     [HttpGet]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> GetAll()
     {
-        //TODO wrap this in a try catch block and throw an error if issues occur
-        var feedback = await _databaseService.getFeedback();
+        List<PredictionFeedback> feedback;
+        try
+        {
+            feedback = await _databaseService.getAllFeedback();
+        }
+        catch (Exception e)
+        {
+            return StatusCode(500, e.Message);
+        }
 
         return Ok(JsonConvert.SerializeObject(feedback));
     }
     
     /**
-     * <summary>Accepts a prediction rating, which is then saved.</summary>
-     * <param name="feedback">a PredictionRating from the user.</param>
+     * <summary>Accepts a prediction feedback, which is then saved.</summary>
+     * <param name="feedback">a PredictionFeedback from the user.</param>
+     * <response code="200">If the feedback was saved correctly.</response>
+     * <response code="400">If the request body was empty.</response>
      */
     [HttpPost]
     [Consumes("application/json")]
