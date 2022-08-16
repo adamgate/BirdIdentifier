@@ -16,7 +16,7 @@ namespace BirdIdentifier.Migrations
                 {
                     PredictionFeedbackId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     WasCorrect = table.Column<bool>(type: "boolean", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     ImageChecksum = table.Column<string>(type: "text", nullable: false),

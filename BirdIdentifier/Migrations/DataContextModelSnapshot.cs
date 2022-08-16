@@ -42,7 +42,7 @@ namespace BirdIdentifier.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("Timestamp")
+                    b.Property<DateTime?>("Timestamp")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("WasCorrect")
