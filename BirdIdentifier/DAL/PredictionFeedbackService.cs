@@ -23,11 +23,13 @@ public class PredictionFeedbackService
         return await _context.PredictionFeedback.ToListAsync();
     }
 
-    public async Task createFeedback(PredictionFeedback feedback)
+    public async Task<PredictionFeedback> createFeedback(PredictionFeedback feedback)
     {
         feedback.Timestamp ??= DateTime.UtcNow;
         
         _context.Add(feedback);
         await _context.SaveChangesAsync();
+
+        return _context.PredictionFeedback.First(pf => pf.Timestamp == feedback.Timestamp);
     }
 }

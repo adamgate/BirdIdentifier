@@ -2,6 +2,7 @@
 using BirdIdentifier.Data;
 using BirdIdentifier.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace BirdIdentifier.Controllers;
@@ -59,28 +60,29 @@ public class PredictionFeedbackController : ControllerBase
             return StatusCode(500, ioe.Message);
         }
 
-        return Ok(JsonConvert.SerializeObject(feedback));
+        return Ok(JsonConvert.SerializeObject(feedback, Formatting.Indented));
     }
     
     /**
      * <summary>Accepts a prediction feedback, which is then saved.</summary>
-     * <param name="feedback">a PredictionFeedback from the user.</param>
+     * <param name="feedbackIn">a PredictionFeedback from the user.</param>
      * <response code="200">If the feedback was saved correctly.</response>
      * <response code="400">If the request body was empty.</response>
      */
     [HttpPost]
     [Consumes("application/json")]
-    public async Task<IActionResult> Post(PredictionFeedback feedback)
+    public async Task<IActionResult> Post(PredictionFeedback feedbackIn)
     {
+        PredictionFeedback feedbackOut;
         try
         {
-            await _databaseService.createFeedback(feedback);
+           feedbackOut = await _databaseService.createFeedback(feedbackIn);
         }
-        catch (Exception e)
+        catch (DbUpdateException dbe)
         {
-            return BadRequest("Function not yet implemented.");
+            return BadRequest(dbe.Message);
         }
 
-        return NoContent();
+        return Ok(JsonConvert.SerializeObject(feedbackOut, Formatting.Indented));
     }
 }

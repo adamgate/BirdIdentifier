@@ -1,6 +1,5 @@
 using System.Reflection;
 using BirdIdentifier.Data;
-using BirdIdentifier.Utils;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.OpenApi.Models;
 
