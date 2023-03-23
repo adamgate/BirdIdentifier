@@ -38,8 +38,7 @@ if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Product
         options.AddPolicy(name: MyAllowSpecificOrigins,
             policy =>
             {
-                policy.WithOrigins(Environment.GetEnvironmentVariable("ALLOWED_ORIGINS"))
-                      .SetIsOriginAllowedToAllowWildcardSubdomains();
+                policy.WithOrigins(Environment.GetEnvironmentVariable("ALLOWED_ORIGINS"));
             });
     });
 }
