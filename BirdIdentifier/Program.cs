@@ -30,6 +30,7 @@ builder.Services.AddSwaggerGen(options =>
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 });
 
+// Enable CORS for sites listed in an env var
 if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Production"))
 {
     builder.Services.AddCors(options =>
@@ -37,7 +38,8 @@ if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Product
         options.AddPolicy(name: MyAllowSpecificOrigins,
             policy =>
             {
-                policy.WithOrigins(Environment.GetEnvironmentVariable("ALLOWED_ORIGINS"));
+                policy.WithOrigins(Environment.GetEnvironmentVariable("ALLOWED_ORIGINS"))
+                      .SetIsOriginAllowedToAllowWildcardSubdomains();
             });
     });
 }
