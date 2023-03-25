@@ -17,6 +17,8 @@ public class HeartbeatController : ControllerBase
     [Produces("application/json")]
     public IActionResult Heartbeat()
     {
-        return Content("{ \"health\":\"ok\" }");
+        string msg = "{ \"health\":\"ok\" }";
+        Console.WriteLine(msg);
+        return Content(msg);
     }
 }
