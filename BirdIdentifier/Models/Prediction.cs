@@ -6,8 +6,7 @@ public class Prediction
     public DateTime Timestamp { get; set; }
     public string PredictionName { get; set; }
     public decimal PredictionScore { get; set; }
-    public string ExactLink { get; set; }
-    public string SearchLink { get; set; }
+    public string LearnMoreLink { get; set; }
 
     public Prediction()
     {

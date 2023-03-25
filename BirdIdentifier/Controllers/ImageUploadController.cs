@@ -66,10 +66,8 @@ public class ImageUploadController : ControllerBase
         //String processing
         prediction.PredictionName = prediction.PredictionName.Replace("-", " ");
         prediction.PredictionName = prediction.PredictionName.ToLower();
-        prediction.SearchLink = $"https://www.audubon.org/search_results?search={prediction.PredictionName}";
-        prediction.SearchLink = prediction.SearchLink.Replace(" ", "%20");
-        prediction.ExactLink = $"https://www.audubon.org/field-guide/bird/{prediction.PredictionName}";
-        prediction.ExactLink = prediction.ExactLink.Replace(" ", "-");
+        prediction.LearnMoreLink = $"https://www.google.com/search?q={prediction.PredictionName}+bird";
+        prediction.LearnMoreLink = prediction.LearnMoreLink.Replace(" ", "+");
         
         Console.WriteLine($"Prediction: {prediction.PredictionName} | Time: {prediction.Timestamp:f} | User: {Request.Headers["User-Agent"].ToString()}");
         Console.WriteLine(JsonConvert.SerializeObject(prediction, Formatting.Indented));
