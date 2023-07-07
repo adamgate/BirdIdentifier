@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography;
+using System.Security.Cryptography;
 
 namespace BirdIdentifier.Utils;
 
@@ -37,7 +37,6 @@ public static class EncodingUtils
         }
     }
 
-    
     // public static IFormFile FromBase64(String image)
     // {
     //     // var img = Image.FromStream(new MemoryStream(Convert.FromBase64String(base64String)));

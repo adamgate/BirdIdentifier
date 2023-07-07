@@ -18,13 +18,16 @@ builder.Services.AddDbContext<DataContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Version = "v1",
-        Title = "BirdIdentifier API",
-        Description = "An ASP.NET Core Web API for identifying bird species in images",
-    });
-    
+    options.SwaggerDoc(
+        "v1",
+        new OpenApiInfo
+        {
+            Version = "v1",
+            Title = "BirdIdentifier API",
+            Description = "An ASP.NET Core Web API for identifying bird species in images",
+        }
+    );
+
     // Use generated XML file for swagger documentation
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
@@ -35,11 +38,13 @@ if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Product
 {
     builder.Services.AddCors(options =>
     {
-        options.AddPolicy(name: MyAllowSpecificOrigins,
+        options.AddPolicy(
+            name: MyAllowSpecificOrigins,
             policy =>
             {
                 policy.WithOrigins(Environment.GetEnvironmentVariable("ALLOWED_ORIGINS"));
-            });
+            }
+        );
     });
 }
 
@@ -53,10 +58,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseCors(x => x
-        .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader());
+    app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
     // app.UseHttpLogging();
 }

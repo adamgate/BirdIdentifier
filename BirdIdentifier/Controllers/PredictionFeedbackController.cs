@@ -1,4 +1,4 @@
-﻿using BirdIdentifier.DAL;
+using BirdIdentifier.DAL;
 using BirdIdentifier.Data;
 using BirdIdentifier.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +20,7 @@ public class PredictionFeedbackController : ControllerBase
     {
         _databaseService = new PredictionFeedbackService(context);
     }
-    
+
     /**
      * <summary>Returns a PredictionFeedback object.</summary>
      * <param name="id">The feedback id to be returned.</param>
@@ -33,7 +33,7 @@ public class PredictionFeedbackController : ControllerBase
         PredictionFeedback feedback;
         try
         {
-            feedback =  _databaseService.getFeedback(id);
+            feedback = _databaseService.getFeedback(id);
         }
         catch (InvalidOperationException ioe)
         {
@@ -42,7 +42,7 @@ public class PredictionFeedbackController : ControllerBase
 
         return Ok(JsonConvert.SerializeObject(feedback, Formatting.Indented));
     }
-    
+
     /**
      * <summary>Returns a list of all the feedback in the system.</summary>
      * <response code="200">A list of all feedback in the database.</response>
@@ -62,7 +62,7 @@ public class PredictionFeedbackController : ControllerBase
 
         return Ok(JsonConvert.SerializeObject(feedback, Formatting.Indented));
     }
-    
+
     /**
      * <summary>Accepts a prediction feedback, which is then saved.</summary>
      * <param name="feedbackIn">a PredictionFeedback from the user.</param>
@@ -76,7 +76,7 @@ public class PredictionFeedbackController : ControllerBase
         PredictionFeedback feedbackOut;
         try
         {
-           feedbackOut = await _databaseService.createFeedback(feedbackIn);
+            feedbackOut = await _databaseService.createFeedback(feedbackIn);
         }
         catch (DbUpdateException dbe)
         {

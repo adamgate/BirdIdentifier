@@ -1,4 +1,4 @@
-﻿using BirdIdentifier.Models;
+using BirdIdentifier.Models;
 using Microsoft.AspNetCore.Mvc;
 
 using BirdIdentifier.Utils;
@@ -26,7 +26,7 @@ public class ImageUploadController : ControllerBase
     public async Task<IActionResult> OnPostUpload(IFormFile image)
     {
         var fileExt = Path.GetExtension(image.FileName).ToLower();
-        
+
         //Check for the correct filetypes & return error if they don't match
         if (fileExt != ".jpg" && fileExt != ".jpeg" && fileExt != ".png")
             return BadRequest("File was not of type .png, .jpg, or .jpeg.");
@@ -40,7 +40,7 @@ public class ImageUploadController : ControllerBase
         //Create directory if it doesn't exist
         Directory.CreateDirectory(@"./UploadedImages");
         var filePath = $@"./UploadedImages/{prediction.ImageChecksum}{fileExt}";
-            
+
         // Save the file if it isn't already present
         if (!System.IO.File.Exists(filePath))
         {
@@ -49,13 +49,10 @@ public class ImageUploadController : ControllerBase
                 await image.CopyToAsync(stream);
             }
         }
-        
+
         //Convert image into format the ML model can use
-        var mlData = new MLModel.ModelInput
-        {
-            ImageSource = filePath
-        };
-            
+        var mlData = new MLModel.ModelInput { ImageSource = filePath };
+
         //Pass in the data and get a prediction
         var predictionResult = MLModel.Predict(mlData);
 
@@ -66,12 +63,15 @@ public class ImageUploadController : ControllerBase
         //String processing
         prediction.PredictionName = prediction.PredictionName.Replace("-", " ");
         prediction.PredictionName = prediction.PredictionName.ToLower();
-        prediction.LearnMoreLink = $"https://www.google.com/search?q={prediction.PredictionName}+bird";
+        prediction.LearnMoreLink =
+            $"https://www.google.com/search?q={prediction.PredictionName}+bird";
         prediction.LearnMoreLink = prediction.LearnMoreLink.Replace(" ", "+");
-        
-        Console.WriteLine($"Prediction: {prediction.PredictionName} | Time: {prediction.Timestamp:f} | User: {Request.Headers["User-Agent"].ToString()}");
+
+        Console.WriteLine(
+            $"Prediction: {prediction.PredictionName} | Time: {prediction.Timestamp:f} | User: {Request.Headers["User-Agent"].ToString()}"
+        );
         Console.WriteLine(JsonConvert.SerializeObject(prediction, Formatting.Indented));
-        
+
         //Return prediction to the front end
         return Ok(JsonConvert.SerializeObject(prediction, Formatting.Indented));
     }

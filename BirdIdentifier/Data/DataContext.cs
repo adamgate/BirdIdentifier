@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 using BirdIdentifier.Models;
 using Npgsql;
@@ -20,7 +20,10 @@ public class DataContext : DbContext
 
         if (databaseUrl == null)
         {
-            throw new ArgumentNullException(databaseUrl, "environment var DATABASE_URL should not be null.");
+            throw new ArgumentNullException(
+                databaseUrl,
+                "environment var DATABASE_URL should not be null."
+            );
         }
 
         var databaseUri = new Uri(databaseUrl);
@@ -33,10 +36,10 @@ public class DataContext : DbContext
             Username = userInfo[0],
             Password = userInfo[1],
             Database = databaseUri.LocalPath.TrimStart('/'),
-            // SslMode = SslMode.Require, 
+            // SslMode = SslMode.Require,
             // TrustServerCertificate = true
         };
-        
+
         var connString = builder.ToString();
 
         options.UseNpgsql(connString);

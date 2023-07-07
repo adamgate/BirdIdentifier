@@ -1,4 +1,4 @@
-﻿using BirdIdentifier.Data;
+using BirdIdentifier.Data;
 using BirdIdentifier.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +8,7 @@ public class PredictionFeedbackService
 {
     private DataContext _context;
 
-    public  PredictionFeedbackService(DataContext context)
+    public PredictionFeedbackService(DataContext context)
     {
         _context = context;
     }
@@ -26,7 +26,7 @@ public class PredictionFeedbackService
     public async Task<PredictionFeedback> createFeedback(PredictionFeedback feedback)
     {
         feedback.Timestamp ??= DateTime.UtcNow;
-        
+
         _context.Add(feedback);
         await _context.SaveChangesAsync();
 

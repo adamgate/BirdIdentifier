@@ -1,4 +1,4 @@
-﻿namespace BirdIdentifier.Models;
+namespace BirdIdentifier.Models;
 
 public class Prediction
 {
@@ -8,9 +8,7 @@ public class Prediction
     public decimal PredictionScore { get; set; }
     public string LearnMoreLink { get; set; }
 
-    public Prediction()
-    {
-    }
+    public Prediction() { }
 
     public void FindHighestScore(float[] scores)
     {
