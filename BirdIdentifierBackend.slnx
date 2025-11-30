@@ -1,3 +1,6 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".slugignore" />
+  </Folder>
   <Project Path="BirdIdentifierBackend/BirdIdentifierBackend.csproj" />
 </Solution>
