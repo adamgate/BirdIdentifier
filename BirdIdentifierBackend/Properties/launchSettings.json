@@ -1,0 +1,29 @@
+﻿{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:7111",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "BirdClassificationModelV1Path": "./MLModels/BirdClassificationModelV1.zip",
+        "BirdClassificationModelV2Path": "./MLModels/BirdClassificationModelV2.mlnet",
+        "BirdDetectorModelPath": "./MLModels/BirdDetectorModel.mlnet"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:7110;http://localhost:7111",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "BirdClassificationModelV1Path": "./MLModels/BirdClassificationModelV1.zip",
+        "BirdClassificationModelV2Path": "./MLModels/BirdClassificationModelV2.mlnet",
+        "BirdDetectorModelPath": "./MLModels/BirdDetectorModel.mlnet"
+      }
+    }
+  }
+}
