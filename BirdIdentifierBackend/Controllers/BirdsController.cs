@@ -41,21 +41,6 @@ namespace BirdIdentifierBackend.Controllers
             var imageBytes = System.IO.File.ReadAllBytes(filePath);
             Prediction? prediction;
 
-            // Determine if image is a bird
-            var birdDetectorInput = new BirdDetectorModel.ModelInput { ImageSource = imageBytes };
-            var birdDetectorResult = BirdDetectorModel.Predict(birdDetectorInput);
-            if (!birdDetectorResult.PredictedLabel.Equals("bird"))
-            {
-                prediction = new Prediction()
-                {
-                    Name = birdDetectorResult.PredictedLabel,
-                    Timestamp = DateTime.Now,
-                    Score = GetHighestScore(birdDetectorResult.Score),
-                    LearnMoreLink = ""
-                };
-                return Ok(JsonConvert.SerializeObject(prediction, Formatting.Indented));
-            }
-
             // Determine what kind of bird image is
             if (version == 1)
             {
@@ -72,6 +57,22 @@ namespace BirdIdentifierBackend.Controllers
             }
             else if (version == 2)
             {
+                // Determine if image is a bird
+                var birdDetectorInput = new BirdDetectorModel.ModelInput { ImageSource = imageBytes };
+                var birdDetectorResult = BirdDetectorModel.Predict(birdDetectorInput);
+                if (!birdDetectorResult.PredictedLabel.Equals("bird"))
+                {
+                    prediction = new Prediction()
+                    {
+                        Name = birdDetectorResult.PredictedLabel,
+                        Timestamp = DateTime.Now,
+                        Score = GetHighestScore(birdDetectorResult.Score),
+                        LearnMoreLink = ""
+                    };
+                    return Ok(JsonConvert.SerializeObject(prediction, Formatting.Indented));
+                }
+
+                // Determine what kind of bird image is
                 var birdClassificationV2Input = new BirdClassificationModelV2.ModelInput { ImageSource = imageBytes };
                 var birdClassificationV2Result = BirdClassificationModelV2.Predict(birdClassificationV2Input);
 

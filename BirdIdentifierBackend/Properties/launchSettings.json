@@ -17,7 +17,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": false,
-      "applicationUrl": "https://localhost:7110;http://localhost:7111",
+      "applicationUrl": "https://localhost:7110",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "BirdClassificationModelV1Path": "./MLModels/BirdClassificationModelV1.zip",
