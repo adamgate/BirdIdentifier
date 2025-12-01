@@ -7,15 +7,6 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
-// Enable CORS for sites listed in an env var
 if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.Equals("Production") ?? false)
 {
     builder.Services.AddCors(options =>
@@ -28,7 +19,19 @@ if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.Equals("Produc
             }
         );
     });
+}
 
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
+
+// Enable CORS for sites listed in an env var
+if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.Equals("Production") ?? false)
+{
     app.UseCors("_myAllowSpecificOrigins");
 }
 else
@@ -36,7 +39,7 @@ else
     app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 }
 
-    app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
